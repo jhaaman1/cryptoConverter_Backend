@@ -29,8 +29,8 @@ const AccountServices = {
     }
   },
 
-  convertCurrency: async (req, res) => {
-    try {
+  convertCurrency: async (sourceCrypto, amount, targetCurrency) => {
+      try {
       const response = await axios.get(
         "https://api.coingecko.com/api/v3/simple/price",
         {
@@ -41,8 +41,7 @@ const AccountServices = {
         }
       );
 
-      const exchangeRate =
-        response.data[sourceCrypto][targetCurrency.toLowerCase()];
+      const exchangeRate = response.data[sourceCrypto][targetCurrency.toLowerCase()];
       const convertedAmount = amount * exchangeRate;
 
       return {
